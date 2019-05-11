@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
 import 'app/application.dart';
 import 'provide/root_pages_provide.dart';
+import 'provide/bookshelf_provide.dart';
 import 'package:provide/provide.dart';
 import 'ebook_app.dart';
 import 'app/routers.dart';
@@ -12,7 +13,7 @@ void main() {
   final providers = Providers()
     // ..provide(Provider.function((_) => HomeProvider()))
     // ..provide(Provider.function((_) => CategoryGoodsProvider()))
-    // ..provide(Provider.function((_) => CategorySubCategoryProvider()))
+    ..provide(Provider.function((_) => BookshelfProvide()))
     ..provide(Provider.function((_) => RootPagesProvide()));
 
     final Router router = Router();
