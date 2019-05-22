@@ -5,6 +5,7 @@
 .packages
 .pub/
 build/
+ios/Flutter/Flutter.framework
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
