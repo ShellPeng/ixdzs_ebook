@@ -7,6 +7,7 @@ export '../common/styles.dart';
 export '../common/toast.dart';
 export 'app_color.dart';
 export 'api_service.dart';
+export 'package:flutter/material.dart';
 
 
 import 'package:fluro/fluro.dart';

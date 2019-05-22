@@ -6,7 +6,9 @@ const serviceUrl = 'http://api.ixdzs.com/';
 
 class EbookApi {
   static const update = '$serviceUrl/update';
-
+  static const readnow = '$serviceUrl/readnow';
+  static const recommend = '$serviceUrl/recommend';
+  static const hotauthor = '$serviceUrl/hotauthor';
 }
 
 Future<Response> request(String ebookApi,{Map<String, dynamic> params}) async{
