@@ -85,7 +85,7 @@ class _ShelfHeaderState extends State<ShelfHeader> with SingleTickerProviderStat
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             DecoratedBox(
-              child: NovelCover('http://img-tailor.11222.cn/bcv/big/201901031812421599.jpg', 120, 160),
+              child: NovelCover('https://img22.aixdzs.com/37/8e/378e3be4bfec908983a88f203926108d.jpg', 120, 160),
               decoration: BoxDecoration(boxShadow: Styles.borderShadow),
             ),
             SizedBox(width: 20),
@@ -94,7 +94,7 @@ class _ShelfHeaderState extends State<ShelfHeader> with SingleTickerProviderStat
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 40),
-                  Text("novel.name", style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text("三体", style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)),
                   SizedBox(height: 20),
                   Row(
                     children: <Widget>[

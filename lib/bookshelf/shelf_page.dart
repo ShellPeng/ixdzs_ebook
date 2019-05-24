@@ -6,7 +6,8 @@ import 'package:provide/provide.dart';
 import '../provide/bookshelf_provide.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_easyrefresh/ball_pulse_header.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/taurus_header.dart';
 
 class BookShelfPage extends StatelessWidget {
   final GlobalKey<EasyRefreshState> _refreshKey = GlobalKey();
@@ -37,11 +38,17 @@ class BookShelfPage extends StatelessWidget {
                       forceElevated: innerScrolled,
                       actions: <Widget>[
                         IconButton(
-                          icon: Image.asset('img/actionbar_checkin.png'),
+                          icon: Icon(Icons.refresh,color: Colors.white,),
                           onPressed: (){
-                            print('签到');
+                            Provide.value<BookshelfProvide>(context).reloadData();
                           },
                         ),
+                        // IconButton(
+                        //   icon: Image.asset('img/actionbar_checkin.png'),
+                        //   onPressed: (){
+                        //     print('签到');
+                        //   },
+                        // ),
                         IconButton(
                           icon: Image.asset('img/actionbar_search.png'),
                           onPressed: (){
@@ -54,12 +61,12 @@ class BookShelfPage extends StatelessWidget {
                 ],
             body: Provide<BookshelfProvide>(
                 builder: (context, _, provider) => 
-                EasyRefresh(
-                      key: _refreshKey,
-                      refreshHeader:
-                          BallPulseHeader(key: _headerKey, color: Colors.pink),
-                      onRefresh: () => provider.reloadData(),
-                      child: 
+                // EasyRefresh(
+                //       key: _refreshKey,
+                //       refreshHeader:
+                //           TaurusHeader(key: _headerKey),
+                //       onRefresh: () => provider.reloadData(),
+                //       child: 
                       CustomScrollView(
                         physics: ClampingScrollPhysics(),
                         slivers: <Widget>[
@@ -83,9 +90,17 @@ class BookShelfPage extends StatelessWidget {
                           )
                         ],
                       ),
-                    )
-                    )
-                    )
+                    
+                    // )
+                    ),
+                    
+                    ),
+                    floatingActionButton: FloatingActionButton(
+                        onPressed: () {
+                          Provide.value<BookshelfProvide>(context).reloadData();
+                        },
+                        mini: true,
+                        child: Icon(Icons.refresh,color: Colors.white)),
                     );
   }
 }

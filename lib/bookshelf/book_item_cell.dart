@@ -18,7 +18,7 @@ class BookItemCell extends StatelessWidget {
               child: InkWell(
                 child: Image(
                   image: CachedNetworkImageProvider(
-                      'https://img22.ixdzs.com/db/9e/db9e5ab19ce860ff91a035ea1cb86dfd.jpg'),
+                      'https://img22.aixdzs.com/nopic2.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
