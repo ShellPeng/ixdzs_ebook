@@ -14,6 +14,8 @@ class EbookSearchBar extends StatelessWidget {
     this.title,
     this.decoration,
     this.onTap,
+    this.sectionOne,
+    this.sectionTwo,
     @required List<Widget> children,
   }) : _childDelagate = SliverChildListDelegate(
           children,
@@ -30,6 +32,8 @@ class EbookSearchBar extends StatelessWidget {
     this.title,
     this.onTap,
     this.decoration,
+    this.sectionOne,
+    this.sectionTwo,
     @required IndexedWidgetBuilder itemBuilder,
     @required int itemCount,
   }) : _childDelagate = SliverChildBuilderDelegate(
@@ -51,6 +55,10 @@ class EbookSearchBar extends StatelessWidget {
 
   /// Override the search field
   final Widget title;
+
+  final Widget sectionOne;
+
+  final Widget sectionTwo;
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +93,11 @@ class EbookSearchBar extends StatelessWidget {
                   ),
                 ],
               )),
-
+          sectionOne??SliverToBoxAdapter(),
           SliverList(
             delegate: _childDelagate,
           ),
+          sectionTwo??SliverToBoxAdapter()
         ],
       ),
     );

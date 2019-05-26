@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
+import 'package:ixdzs_ebook/app/application.dart';
 import 'ebook_sarchbar.dart';
+import 'search_header.dart';
+import '../common/section_title.dart';
 
 class SearchPage extends StatelessWidget {
   
@@ -21,8 +24,28 @@ class SearchPage extends StatelessWidget {
         //   print('被点击');
         // },
         children: <Widget>[
- 
+          SearchHeader(),
+          SectionTitle('搜索历史', '清空', onTap: (){
+
+          }),
+          Container(
+            height: 40,
+            child: Row(children: <Widget>[
+                SizedBox(width: 15),
+                Icon(Icons.timer,color: AppColor.gray),
+                SizedBox(width: 10),
+                Text('三体',style: TextStyle(color: AppColor.gray,fontSize: 14),)
+              ])
+              // leading: Icon(Icons.timer),
+              // title: Text('三体',style: TextStyle(color: AppColor.gray,fontSize: 14),),            // decoration: bo,
+            
+          )
+          
         ],
+        // sectionOne: SliverToBoxAdapter(
+        //   child: SearchHeader(),
+        // ),
+        // sectionTwo: SliverList(),
       ),
 
 
