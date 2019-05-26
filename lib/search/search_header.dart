@@ -59,34 +59,4 @@ class SearchHeader extends StatelessWidget {
       ],
     ));
   }
-
-  Widget sectionTitle() {
-    return Container(
-      color: AppColor.paper,
-      padding: EdgeInsets.fromLTRB(10, 15, 0, 10),
-      child: Row(
-        children: <Widget>[
-          Image.asset(
-            'img/home_tip.png',
-            color: Colors.red,
-          ),
-          SizedBox(width: 10),
-          Text(
-            '大家都在搜',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-          Expanded(child: Container(),),
-          Container(
-            height: 24,
-            child: FlatButton.icon(
-              icon: Icon(Icons.refresh,color: AppColor.gray,),
-              label: Text('换一批',),
-              color: AppColor.paper,
-              onPressed: (){},
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }

@@ -3,6 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'recommend_novel_cell.dart';
 import '../models/recommend_model.dart';
 import '../app/app_color.dart';
+import '../common/section_title.dart';
+
+
 class RecommendSection extends StatelessWidget {
   final RecNovelListModel novelListModel;
   RecommendSection(this.novelListModel);
@@ -11,7 +14,9 @@ class RecommendSection extends StatelessWidget {
   Widget build(BuildContext context) {
 
     List<Widget> childrenWidget = [
-      sectionTitle()
+      SectionTitle(novelListModel.recommendType,'更多',onTap: (){
+
+      })
     ];
 
     if (novelListModel.books != null){
