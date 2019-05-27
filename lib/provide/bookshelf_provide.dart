@@ -27,7 +27,7 @@ Future<List<ShelfBookModel>> _updateBookList() async{
       }
     });
     print(bids);
-    var response = await request(EbookApi.update,params: {'id': bids});
+    var response = await request(EbookApi.Update,params: {'id': bids});
     return ShelfBookModel.fromMapList(response.data); 
   }
 }

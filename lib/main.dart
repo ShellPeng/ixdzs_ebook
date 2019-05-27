@@ -6,6 +6,7 @@ import 'app/application.dart';
 import 'provide/root_pages_provide.dart';
 import 'provide/bookshelf_provide.dart';
 import 'provide/recommend_provide.dart';
+import 'provide/booksearch_provide.dart';
 import 'package:provide/provide.dart';
 import 'ebook_app.dart';
 import 'app/routers.dart';
@@ -15,6 +16,7 @@ void main() {
   // debugPaintSizeEnabled = true;
 
   final providers = Providers()
+    ..provide(Provider.function((_) => BookSearchProvide()))
     ..provide(Provider.function((_) => RecommendProvide()))
     ..provide(Provider.function((_) => BookshelfProvide()))
     ..provide(Provider.function((_) => RootPagesProvide()));

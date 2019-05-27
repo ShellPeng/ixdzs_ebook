@@ -70,8 +70,8 @@ class EbookSearchBar extends StatelessWidget {
           SliverAppBar(
               pinned: true,
               floating: false,
-              title: Text('搜索',style:TextStyle(color: Colors.white)),
-              expandedHeight:Screen.topSafeHeight+20,
+              backgroundColor: Colors.white,
+              expandedHeight:Screen.topSafeHeight+15,
               flexibleSpace: CustomScrollView(
                 physics: NeverScrollableScrollPhysics(),
                 slivers: <Widget>[

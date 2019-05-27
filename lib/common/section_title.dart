@@ -34,7 +34,7 @@ class SectionTitle extends StatelessWidget {
               icon: Icon(Icons.refresh,color: AppColor.gray,),
               label: Text(trailingTitle,style: TextStyle(fontSize: 15,color: AppColor.gray),),
               color: AppColor.paper,
-              onPressed: (){},
+              onPressed: onTap,
             ),
           )
         ],

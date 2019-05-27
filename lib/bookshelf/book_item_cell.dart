@@ -31,7 +31,7 @@ class BookItemCell extends StatelessWidget {
           Expanded(child: Column(
             children: <Widget>[
               SizedBox(height: 10),
-              Text(bookModel.bid,
+              Text(bookModel.bId,
                   style: TextStyle(fontSize: 14),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),

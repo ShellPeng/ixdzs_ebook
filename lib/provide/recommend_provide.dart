@@ -21,17 +21,17 @@ class RecommendProvide with ChangeNotifier{
   }
 
   Future<RecNovelListModel> _getReadNowData() async {
-    var response = await request(EbookApi.readnow,params: {'limit': 3});
+    var response = await request(EbookApi.Readnow,params: {'limit': 3});
     return RecNovelListModel.fromMap(response.data);
   }
 
   Future<RecNovelListModel> _getHotRecData() async {
-    var response = await request(EbookApi.recommend,params: {'limit': 3});
+    var response = await request(EbookApi.Recommend,params: {'limit': 3});
     return RecNovelListModel.fromMap(response.data);
   }
 
   Future<HotAuthorModel> _getHotAuthors() async{
-    var response = await request(EbookApi.hotauthor,params: {'limit': 30});
+    var response = await request(EbookApi.HotAuthor,params: {'limit': 30});
     return HotAuthorModel.fromMap(response.data);
   }
 }

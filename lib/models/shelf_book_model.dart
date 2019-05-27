@@ -10,7 +10,7 @@
    * allowMonthly : false
    */
 
-  String bid;
+  String bId;
   String author;
   String referenceSource;
   String updated;
@@ -20,7 +20,7 @@
 
   static ShelfBookModel fromMap(Map<String, dynamic> map) {
     ShelfBookModel bookModel = new ShelfBookModel();
-    bookModel.bid = map['_id']; 
+    bookModel.bId = map['_id']; 
     bookModel.author = map['author'];
     bookModel.referenceSource = map['referenceSource'];
     bookModel.updated = map['updated'];
@@ -36,7 +36,7 @@
       list[i] = fromMap(mapList[i]);
     }
     for (var model in list) {
-      if (model.bid == null){
+      if (model.bId == null){
         list.remove(model);
       }
     }

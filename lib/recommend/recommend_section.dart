@@ -34,21 +34,4 @@ class RecommendSection extends StatelessWidget {
           ),
     ));
   }
-
-  Widget sectionTitle(){
-    return Container(
-      color: AppColor.paper,
-      padding: EdgeInsets.fromLTRB(10, 15, 0, 10),
-      child: Row(
-        children: <Widget>[
-          Image.asset('img/home_tip.png',color: Colors.red,),
-          SizedBox(width: 10),
-          Text(
-            novelListModel.recommendType,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
-    );
-  }
 }

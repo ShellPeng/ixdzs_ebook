@@ -5,10 +5,12 @@ import 'package:dio/dio.dart';
 const serviceUrl = 'http://api.ixdzs.com/';
 
 class EbookApi {
-  static const update = '$serviceUrl/update';
-  static const readnow = '$serviceUrl/readnow';
-  static const recommend = '$serviceUrl/recommend';
-  static const hotauthor = '$serviceUrl/hotauthor';
+  static const Update = '$serviceUrl/update';
+  static const Readnow = '$serviceUrl/readnow';
+  static const Recommend = '$serviceUrl/recommend';
+  static const HotAuthor = '$serviceUrl/hotauthor';
+  static const HotWords = '$serviceUrl/book/hot-word';
+  static const Search = '$serviceUrl/book/search';
 }
 
 Future<Response> request(String ebookApi,{Map<String, dynamic> params}) async{
@@ -22,7 +24,7 @@ Future<Response> request(String ebookApi,{Map<String, dynamic> params}) async{
       // response = await dio.post(method,data:params);
       response = await dio.get(ebookApi,queryParameters: params);
       
-      print(response.data.toString());
+      // print(response.data.toString());
     }
     if (response.statusCode == 200) {
       return response;
