@@ -4,11 +4,15 @@ import 'dart:math';
 import '../common/section_title.dart';
 import '../models/hotwords_model.dart';
 
+typedef Callback = void Function(dynamic params);
+
+
 class SearchHeader extends StatelessWidget {
-  final VoidCallback bookTap;
+  final Callback selectBlock;
   final VoidCallback onTap;
   final HotWordsModel hotWords;
-  SearchHeader(this.hotWords,{Key key,this.onTap,this.bookTap}) : super(key: key);
+  
+  SearchHeader(this.hotWords,{Key key,this.onTap,this.selectBlock}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,9 @@ class SearchHeader extends StatelessWidget {
           backgroundColor: Color.fromRGBO(Random().nextInt(255),
               Random().nextInt(255), Random().nextInt(255), 1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-          onPressed: (){}),
+          onPressed: (){
+            selectBlock(hotWord.word);
+          }),
         // child: GestureDetector(
         //   child: Text(author,style:TextStyle(color: Colors.white),textAlign: TextAlign.center,),
         // ),

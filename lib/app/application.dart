@@ -5,6 +5,7 @@ library public;
 export '../common/screen.dart';
 export '../common/styles.dart';
 export '../common/toast.dart';
+export '../common/utility.dart';
 export 'app_color.dart';
 export 'api_service.dart';
 export 'package:flutter/material.dart';

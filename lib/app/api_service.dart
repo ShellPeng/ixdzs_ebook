@@ -11,6 +11,13 @@ class EbookApi {
   static const HotAuthor = '$serviceUrl/hotauthor';
   static const HotWords = '$serviceUrl/book/hot-word';
   static const Search = '$serviceUrl/book/search';
+  
+  static String BookRecommend(String bid) {
+    return '$serviceUrl/book-list/$bid/recommend';
+  }
+  static String BookDetail(String bid) {
+    return '$serviceUrl/book/$bid';
+  }
 }
 
 Future<Response> request(String ebookApi,{Map<String, dynamic> params}) async{

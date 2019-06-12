@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'recommend_novel_cell.dart';
 import '../models/recommend_model.dart';
 import '../app/app_color.dart';

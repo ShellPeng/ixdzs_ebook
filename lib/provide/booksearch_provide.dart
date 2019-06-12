@@ -16,7 +16,6 @@ class BookSearchProvide with ChangeNotifier{
 
   reloadData() async {
     _hotWords = await _getHotWords();
-
     notifyListeners();
   }
 
@@ -43,7 +42,13 @@ class BookSearchProvide with ChangeNotifier{
 
   getSearchRecord() async{
     preferences = await SharedPreferences.getInstance();
-    _searchList = preferences.getStringList('SearchRecord').toList();
+    var recordList = preferences.getStringList('SearchRecord');
+    if (recordList == null) {
+      preferences.setStringList('SearchRecord', []);
+    } else {
+      _searchList = recordList.toList();
+    }
+    
     notifyListeners();
   }
 

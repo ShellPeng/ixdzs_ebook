@@ -1,6 +1,9 @@
+import 'package:ixdzs_ebook/novel_detail/novel_detail_page.dart';
 import '../app/application.dart';
 import '../common/novel_cover.dart';
 import '../models/recommend_model.dart';
+import '../app/app_navigator.dart';
+
 class RecommendNovelCell extends StatelessWidget {
   final RecNovelMdoel novelModel;
   RecommendNovelCell(this.novelModel);
@@ -8,7 +11,9 @@ class RecommendNovelCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        AppNavigator.push(context, NovelDetail(novelModel.bid));
+      },
       child: Container(
         padding: EdgeInsets.all(15),
         child: Row(

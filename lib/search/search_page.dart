@@ -35,8 +35,8 @@ class SearchPage extends StatelessWidget {
     if (provide.keyWords == '') {
       children.add(SearchHeader(provide.hotWords, onTap: () {
         provide.reloadData();
-      },bookTap: (){
-        
+      },selectBlock: (dynamic book){
+        provide.saveSearchRecord(book as String);
       }));
       children.add(SectionTitle('搜索历史', '清空', onTap: () {
         provide.clearSearchRecord();

@@ -26,7 +26,7 @@ class RecommendPage extends StatelessWidget {
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),
             slivers: <Widget>[
-              RecommendHeader(),
+              RecommendHeader(), 
               RecommendSection(recProvide.readNowModel),
               RecommendSection(recProvide.hotRecModel),
               RecommendAuthors(recProvide.hotAuthorModel)
