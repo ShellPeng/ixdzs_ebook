@@ -87,7 +87,7 @@ class NovelDetailHeader extends StatelessWidget {
                 ]),
                 SizedBox(height: 5),
                 Text(
-                  '最新章节',
+                  '最新章节：${novel.lastChapter}',
                   style: TextStyle(fontSize: 13, color: AppColor.gray),
                 ),
               ],

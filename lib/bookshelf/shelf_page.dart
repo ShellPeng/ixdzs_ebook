@@ -74,7 +74,7 @@ class BookShelfPage extends StatelessWidget {
                               handle: NestedScrollView
                                   .sliverOverlapAbsorberHandleFor(context)),
                           SliverPadding(
-                            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 15),
                             sliver: provider.shelfBookList.length > 0
                                 ? SliverGrid.count(
                                     crossAxisCount: 1,

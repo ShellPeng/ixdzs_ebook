@@ -24,7 +24,6 @@ class NovelSummary extends StatelessWidget {
               maxLines: isUnfold ? null : 4,
               style: TextStyle(fontSize: 14),
             ),
-            // Image.asset('img/detail_fold_bg.png'),
             Image.asset(isUnfold ? 'img/detail_up.png' : 'img/detail_down.png'),
           ],
         ),

@@ -61,4 +61,17 @@ class NovelDetailModel {
     data['lastChapter'] = this.lastChapter;
     return data;
   }
+
+  static List<NovelDetailModel> fromMapList(dynamic mapList) {
+    List<NovelDetailModel> list = new List(mapList.length);
+    for (int i = 0; i < mapList.length; i++) {
+      list[i] = NovelDetailModel.fromJson(mapList[i]);
+    }
+    for (var model in list) {
+      if (model.bId == null){
+        list.remove(model);
+      }
+    }
+    return list;
+  }
 }

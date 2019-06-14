@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../models/shelf_book_model.dart';
+import '../models/book_detail_model.dart';
+import '../app/app_color.dart';
 
 class BookItemCell extends StatelessWidget {
-  final ShelfBookModel bookModel;
-  BookItemCell(this.bookModel);
+  final NovelDetailModel novel;
+  BookItemCell(this.novel);
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(top: 10), 
-      height: 230,
+      // padding: EdgeInsets.only(top: 10,bottom: 10), 
+      height: 250,
+      decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(bottom: BorderSide(color: AppColor.paper,width: 1)),
+          ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          DecoratedBox(
-
+          Container(
+              padding: EdgeInsets.fromLTRB(15, 10, 0, 15),
               child: InkWell(
                 child: Image(
                   image: CachedNetworkImageProvider(
-                      'https://img22.aixdzs.com/nopic2.jpg'),
+                      'https://img22.ixdzs.com/${novel.cover}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -31,22 +36,22 @@ class BookItemCell extends StatelessWidget {
           Expanded(child: Column(
             children: <Widget>[
               SizedBox(height: 10),
-              Text(bookModel.bId,
+              Text(novel.title,
                   style: TextStyle(fontSize: 14),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),
               SizedBox(height: 8),
-              Text('更新到：${bookModel.lastChapter}',
+              Text('更新到：${novel.lastChapter}',
                   style: TextStyle(fontSize: 12,color: Colors.grey),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),
                   SizedBox(height: 8),
-              Text('总共${bookModel.chaptersCount}章',
+              Text('总共${novel.chaptersCount}章',
                   style: TextStyle(fontSize: 12,color: Colors.grey),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),
                   SizedBox(height: 8),
-              Text(DateTime.parse(bookModel.updated).toString(),
+              Text(DateTime.parse(novel.updated).toString(),
                   style: TextStyle(fontSize: 12,color: Colors.grey),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),

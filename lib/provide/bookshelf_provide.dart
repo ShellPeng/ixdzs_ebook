@@ -1,10 +1,15 @@
+import 'dart:convert';
+
+import 'package:ixdzs_ebook/app/application.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../app/application.dart';
 import '../models/shelf_book_model.dart';
+import '../models/book_detail_model.dart';
+
 
 class BookshelfProvide with ChangeNotifier{
-  List<ShelfBookModel> _shelfBookList = [];
-  List<ShelfBookModel> get shelfBookList => _shelfBookList;
+  List<NovelDetailModel> _shelfBookList = [];
+  List<NovelDetailModel> get shelfBookList => _shelfBookList;
 
   reloadData() async {
     // _shelfBookList.clear();
@@ -13,27 +18,41 @@ class BookshelfProvide with ChangeNotifier{
     notifyListeners();
   }
 
-Future<List<ShelfBookModel>> _updateBookList() async{
+  addNovelToShelf(String book) async {
     preferences = await SharedPreferences.getInstance();
-    preferences.setStringList('bids', ['151926','154223','200077','168481','195630','168708']);
-    var bidArray = preferences.getStringList('bids');
-    if (bidArray == null){
-      print('数组为空');
+    var bookArray = preferences.getStringList('BookShelf');
+    if (bookArray == null){
+      bookArray = [book];
     }else{
-      print(bidArray); 
+      bookArray.add(book);
     }
-    
-    
+    preferences.setStringList('BookShelf', bookArray);
+  }
+
+Future<List<NovelDetailModel>> _updateBookList() async{
+    preferences = await SharedPreferences.getInstance();
+    var bookArray = preferences.getStringList('BookShelf');
+    if (bookArray == null){
+      preferences.setStringList('BookShelf', bookArray);
+    }
     var bids = ''; 
-    bidArray.forEach((String bid) {
+    bookArray.forEach((String book) {
       if (bids == ''){
-        bids = bid;
+        bids = NovelDetailModel.fromJson(json.decode(book)).bId;
       }else{
-        bids = bids+','+bid;
+        bids = bids+','+NovelDetailModel.fromJson(json.decode(book)).bId;
       }
     });
-    print(bids);
+
     var response = await request(EbookApi.Update,params: {'id': bids});
-    return ShelfBookModel.fromMapList(response.data); 
+    var newBooks = NovelDetailModel.fromMapList(response.data);
+    for (var index = 0;index<newBooks.length;index++){
+      var oldBook = NovelDetailModel.fromJson(json.decode(bookArray[index]));
+      newBooks[index].title = oldBook.title;
+      newBooks[index].cover = oldBook.cover;
+    }
+    print(newBooks.first.title);
+    print(newBooks.first.cover);
+    return newBooks;
   }
 }

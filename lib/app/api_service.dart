@@ -18,6 +18,10 @@ class EbookApi {
   static String BookDetail(String bid) {
     return '$serviceUrl/book/$bid';
   }
+  static String Chapter(String bid,String chapter) {
+    return '$serviceUrl/chapter/$bid/$chapter';
+  }
+  
 }
 
 Future<Response> request(String ebookApi,{Map<String, dynamic> params}) async{
