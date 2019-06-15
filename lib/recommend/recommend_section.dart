@@ -26,8 +26,7 @@ class RecommendSection extends StatelessWidget {
 
     return SliverToBoxAdapter(
         child: Container(
-          // margin: EdgeInsets.only(top: 10),
-          color: AppColor.white,
+          color: Colors.transparent,
           child: Column(
             children: childrenWidget
           ),

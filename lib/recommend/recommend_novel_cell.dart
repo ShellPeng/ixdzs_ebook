@@ -11,23 +11,23 @@ class RecommendNovelCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        AppNavigator.push(context, NovelDetail(novelModel.bid));
-      },
-      child: Container(
-        padding: EdgeInsets.all(15),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            NovelCover('https://img22.ixdzs.com/${novelModel.cover}',70,100),
-            SizedBox(width: 15),
-            Expanded(
-              child: novelContent(),
-            ),
-          ]
-        ),
-      )
-    );
+        onTap: () {
+          AppNavigator.push(context, NovelDetail(novelModel.bid));
+        },
+        child: Card(
+            child: Container(
+          margin: EdgeInsets.all(10),
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                NovelCover(
+                    'https://img22.ixdzs.com/${novelModel.cover}', 70, 100),
+                SizedBox(width: 15),
+                Expanded(
+                  child: novelContent(),
+                ),
+              ]),
+        )));
   }
 
   Widget novelContent() {
@@ -41,19 +41,19 @@ class RecommendNovelCell extends StatelessWidget {
         // SizedBox(height: 5),
         Row(children: <Widget>[
           Text(
-              novelModel.author,
-              style: TextStyle(fontSize: 13, color: AppColor.red),
-            ),
+            novelModel.author,
+            style: TextStyle(fontSize: 13, color: AppColor.red),
+          ),
           SizedBox(width: 5),
           Text(
-              '|',
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+            '|',
+            style: TextStyle(fontSize: 13, color: AppColor.gray),
+          ),
           SizedBox(width: 5),
           Text(
-              novelModel.cat,
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+            novelModel.cat,
+            style: TextStyle(fontSize: 13, color: AppColor.gray),
+          ),
         ]),
         Text(
           novelModel.shortIntro,
@@ -66,24 +66,24 @@ class RecommendNovelCell extends StatelessWidget {
         ),
         Row(children: <Widget>[
           Text(
-              novelModel.zt,
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+            novelModel.zt,
+            style: TextStyle(fontSize: 13, color: AppColor.gray),
+          ),
           SizedBox(width: 5),
           Text(
-              '|',
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+            '|',
+            style: TextStyle(fontSize: 13, color: AppColor.gray),
+          ),
           SizedBox(width: 5),
           Text(
-              '热度:${novelModel.followerCount}',
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+            '热度:${novelModel.followerCount}',
+            style: TextStyle(fontSize: 13, color: AppColor.gray),
+          ),
         ]),
         Text(
-              novelModel.lastchapter,
-              style: TextStyle(fontSize: 13, color: AppColor.gray),
-            ),
+          novelModel.lastchapter,
+          style: TextStyle(fontSize: 13, color: AppColor.gray),
+        ),
       ],
     );
   }

@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ixdzs_ebook/app/app_color.dart';
+import 'package:ixdzs_ebook/app/app_navigator.dart';
 import '../app/application.dart';
 import '../models/book_detail_model.dart';
 import 'package:provide/provide.dart';
 import '../provide/bookshelf_provide.dart';
+
+import '../reader/reader_scene.dart';
 
 class NovelDetailToolbar extends StatelessWidget {
   final NovelDetailModel novel;
@@ -37,6 +40,7 @@ class NovelDetailToolbar extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               // AppNavigator.pushReader(context, novel.firstArticleId);
+              AppNavigator.push(context, ReaderScene(novelId: (int.parse(novel.bId))));
             },
             child: Container(
               height: 40,
