@@ -7,36 +7,107 @@ class NovelProvider {
                   ..novelId = bId
                   ..chapterId = chapterId
                   ..nextChapterId = chapterId +1
-                  ..preChapterId = (chapterId -1 > 0)?chapterId -1:0
-                  ..index = 0;
+                  ..preChapterId = (chapterId > 1)?chapterId -1:0
+                  ..index = chapterId;
+    
+    if (chapter == null){
+      chapter = Chapter()
+                ..title = '暂无'
+                ..body = '暂无'
+                ..novelId = bId
+                ..chapterId = chapterId
+                ..nextChapterId = chapterId +1
+                ..preChapterId = (chapterId > 1)?chapterId -1:0
+                ..index = chapterId;
+    }
     return chapter;
   }
+
+  static Future<ChaptersList> fetchChapters(int novelId) async {
+    var response = await request(EbookApi.ChapterList(novelId));
+    var chapters = ChaptersList.fromJson(response.data);
+    return chapters;
+  }
+
 }
 
 
 
 
-// class NovelChapter {
-//   bool ok;
-//   Chapter chapter;
+class ChaptersList {
+  String sId;
+  int chaptercount;
+  String chaptersUpdated;
+  List<ChapterListItem> chapters;
+  String updated;
+  bool ok;
 
-//   NovelChapter({this.ok, this.chapter});
+  ChaptersList(
+      {this.sId,
+      this.chaptercount,
+      this.chaptersUpdated,
+      this.chapters,
+      this.updated,
+      this.ok});
 
-//   NovelChapter.fromJson(Map<String, dynamic> json) {
-//     ok = json['ok'];
-//     chapter =
-//         json['chapter'] != null ? new Chapter.fromJson(json['chapter']) : null;
-//   }
+  ChaptersList.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    chaptercount = json['chaptercount'];
+    chaptersUpdated = json['chaptersUpdated'];
+    if (json['chapters'] != null) {
+      chapters = new List<ChapterListItem>();
+      json['chapters'].forEach((v) {
+        chapters.add(new ChapterListItem.fromJson(v));
+      });
+    }
+    updated = json['updated'];
+    ok = json['ok'];
+  }
 
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['ok'] = this.ok;
-//     if (this.chapter != null) {
-//       data['chapter'] = this.chapter.toJson();
-//     }
-//     return data;
-//   }
-// }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['chaptercount'] = this.chaptercount;
+    data['chaptersUpdated'] = this.chaptersUpdated;
+    if (this.chapters != null) {
+      data['chapters'] = this.chapters.map((v) => v.toJson()).toList();
+    }
+    data['updated'] = this.updated;
+    data['ok'] = this.ok;
+    return data;
+  }
+}
+
+class ChapterListItem {
+  String title;
+  String link;
+  bool unreadble;
+  int index;
+
+  ChapterListItem({this.title, this.link, this.unreadble});
+
+  ChapterListItem.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    link = json['link'];
+    unreadble = json['unreadble'];
+    if (link!=null) {
+      var linkArray = link.split('/');
+      index = int.parse(linkArray.last);
+    } else {
+      index = 1;
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['link'] = this.link;
+    data['unreadble'] = this.unreadble;
+    return data;
+  }
+}
+
+
 
 class Chapter {
   int novelId;
@@ -52,8 +123,7 @@ class Chapter {
 
   Chapter.fromJson(Map<String, dynamic> json) {
     title = json['title'];
-    body = json['body'];
-    index = 0;
+    body = '　　' +json['body'];
   }
 
   Map<String, dynamic> toJson() {

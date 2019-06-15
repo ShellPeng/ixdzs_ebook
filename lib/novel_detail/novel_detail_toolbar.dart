@@ -9,6 +9,7 @@ import 'package:provide/provide.dart';
 import '../provide/bookshelf_provide.dart';
 
 import '../reader/reader_scene.dart';
+import '../reader/novel_provider.dart';
 
 class NovelDetailToolbar extends StatelessWidget {
   final NovelDetailModel novel;
@@ -38,9 +39,10 @@ class NovelDetailToolbar extends StatelessWidget {
         )),
         Expanded(
           child: GestureDetector(
-            onTap: () {
+            onTap: () async {
               // AppNavigator.pushReader(context, novel.firstArticleId);
-              AppNavigator.push(context, ReaderScene(novelId: (int.parse(novel.bId))));
+              ChaptersList chaptersList = await NovelProvider.fetchChapters(int.parse(novel.bId));
+              AppNavigator.push(context, ReaderScene(novelId: (int.parse(novel.bId)),chaptersList: chaptersList));
             },
             child: Container(
               height: 40,

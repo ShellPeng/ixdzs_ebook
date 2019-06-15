@@ -14,8 +14,9 @@ enum PageJumpType { stay, firstPage, lastPage }
 
 class ReaderScene extends StatefulWidget {
   final int novelId;
+  final ChaptersList chaptersList;
 
-  ReaderScene({this.novelId});
+  ReaderScene({this.novelId,this.chaptersList});
 
   @override
   ReaderSceneState createState() => ReaderSceneState();
@@ -33,7 +34,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   Chapter currentArticle;
   Chapter nextArticle;
 
-  List<Chapter> chapters = [];
+  List<ChapterListItem> chapters = [];
 
   @override
   void initState() {
@@ -69,22 +70,23 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
     topSafeHeight = Screen.topSafeHeight;
 
-    // List<dynamic> chaptersResponse = await Request.get(action: 'catalog');
-    // chaptersResponse.forEach((data) {
-    //   chapters.add(Chapter.fromJson(data));
-    // });
+    // ChaptersList chaptersList = await NovelProvider.fetchChapters(this.widget.novelId);
+    chapters = this.widget.chaptersList.chapters;
 
-    await resetContent(this.widget.novelId, PageJumpType.stay);
+    await resetContent(chapters.first.index, PageJumpType.stay);
   }
 
-  resetContent(int articleId, PageJumpType jumpType) async {
-    currentArticle = await fetchArticle(articleId);
-    if (currentArticle.preChapterId > 0) {
+  resetContent(int chapterId, PageJumpType jumpType) async {
+    if (chapterId>=chapters.last.index){
+      chapterId = chapters.last.index;
+    }
+    currentArticle = await fetchArticle(chapterId);
+    if (currentArticle.preChapterId >= chapters.first.index) {
       preArticle = await fetchArticle(currentArticle.preChapterId);
     } else {
       preArticle = null;
     }
-    if (currentArticle.nextChapterId > 0) {
+    if (currentArticle.nextChapterId > 0&&currentArticle.nextChapterId<=chapters.last.index) {
       nextArticle = await fetchArticle(currentArticle.nextChapterId);
     } else {
       nextArticle = null;
@@ -129,29 +131,36 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     }
   }
 
-  fetchPreviousArticle(int articleId) async {
-    if (preArticle != null || isLoading || articleId == 0) {
+  fetchPreviousArticle(int chapterId) async {
+    if (preArticle != null || isLoading || chapterId == 0) {
       return;
     }
     isLoading = true;
-    preArticle = await fetchArticle(articleId);
+    preArticle = await fetchArticle(chapterId);
     pageController.jumpToPage(preArticle.pageCount + pageIndex);
     isLoading = false;
     setState(() {});
   }
 
-  fetchNextArticle(int articleId) async {
-    if (nextArticle != null || isLoading || articleId == 0) {
+  fetchNextArticle(int chapterId) async {
+    if (nextArticle != null || isLoading || chapterId == 0) {
       return;
     }
     isLoading = true;
-    nextArticle = await fetchArticle(articleId);
+    nextArticle = await fetchArticle(chapterId);
     isLoading = false;
     setState(() {});
   }
 
-  Future<Chapter> fetchArticle(int articleId) async {
-    var article = await NovelProvider.fetchChapter(articleId,1);
+  Future<Chapter> fetchArticle(int chapterId) async {
+    var article = await NovelProvider.fetchChapter(this.widget.novelId,chapterId);
+    if (article == null){
+      print('章节内容为空');
+    }else if(article.body == null){
+      print('章节内容为空');
+    }else{
+      print('章节内容:${article.toString()}');
+    }
     var contentHeight = Screen.height - topSafeHeight - ReaderUtils.topOffset - Screen.bottomSafeHeight - ReaderUtils.bottomOffset - 20;
     var contentWidth = Screen.width - 15 - 10;
     article.pageOffsets = ReaderPageAgent.getPageOffsets(article.body, contentHeight, contentWidth, ReaderConfig.instance.fontSize);
@@ -250,8 +259,8 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       onNextArticle: () {
         resetContent(currentArticle.nextChapterId, PageJumpType.firstPage);
       },
-      onToggleChapter: (Chapter chapter) {
-        resetContent(chapter.chapterId, PageJumpType.firstPage);
+      onToggleChapter: (ChapterListItem chapter) {
+        resetContent(chapter.index, PageJumpType.firstPage);
       },
     );
   }
@@ -268,7 +277,6 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     if (currentArticle == null || chapters == null) {
       return Scaffold();
     }
-
     return Scaffold(
       body: Stack(
         children: <Widget>[

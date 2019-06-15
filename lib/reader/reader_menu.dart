@@ -4,13 +4,13 @@ import '../app/application.dart';
 import 'novel_provider.dart';
 
 class ReaderMenu extends StatefulWidget {
-  final List<Chapter> chapters;
+  final List<ChapterListItem> chapters;
   final int articleIndex;
 
   final VoidCallback onTap;
   final VoidCallback onPreviousArticle;
   final VoidCallback onNextArticle;
-  final void Function(Chapter chapter) onToggleChapter;
+  final void Function(ChapterListItem chapter) onToggleChapter;
 
   ReaderMenu({this.chapters, this.articleIndex, this.onTap, this.onPreviousArticle, this.onNextArticle, this.onToggleChapter});
 
@@ -41,7 +41,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
   @override
   void didUpdateWidget(ReaderMenu oldWidget) {
     super.didUpdateWidget(oldWidget);
-    progressValue = this.widget.articleIndex / (this.widget.chapters.length - 1);
+    progressValue = this.widget.articleIndex / (this.widget.chapters.length);
   }
 
   @override
@@ -61,6 +61,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
   }
 
   buildTopView(BuildContext context) {
+    ChapterListItem chapter = this.widget.chapters[this.widget.articleIndex-1];
     return Positioned(
       top: -Screen.navigationBarHeight * (1 - animation.value),
       left: 0,
@@ -80,7 +81,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
                 child: Image.asset('img/pub_back_gray.png'),
               ),
             ),
-            Expanded(child: Container()),
+            Expanded(child: Text(chapter.title,textAlign: TextAlign.center,style: TextStyle(fontSize: 20),)),
             Container(
               width: 44,
               child: Image.asset('img/read_icon_voice.png'),
@@ -96,15 +97,15 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
   }
 
   int currentArticleIndex() {
-    return ((this.widget.chapters.length - 1) * progressValue).toInt();
+    return ((this.widget.chapters.length) * progressValue).toInt();
   }
 
   buildProgressTipView() {
     if (!isTipVisible) {
       return Container();
     }
-    Chapter chapter = this.widget.chapters[currentArticleIndex()];
-    double percentage = chapter.index / (this.widget.chapters.length - 1) * 100;
+    ChapterListItem chapter = this.widget.chapters[currentArticleIndex()];
+    double percentage = chapter.index / (this.widget.chapters.length) * 100;
     return Container(
       decoration: BoxDecoration(color: Color(0xff00C88D), borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
@@ -163,7 +164,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
                 });
               },
               onChangeEnd: (double value) {
-                Chapter chapter = this.widget.chapters[currentArticleIndex()];
+                ChapterListItem chapter = this.widget.chapters[currentArticleIndex()];
                 this.widget.onToggleChapter(chapter);
               },
               activeColor: AppColor.primary,

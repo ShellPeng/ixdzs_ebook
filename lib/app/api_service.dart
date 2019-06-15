@@ -12,14 +12,21 @@ class EbookApi {
   static const HotWords = '$serviceUrl/book/hot-word';
   static const Search = '$serviceUrl/book/search';
   
-  static String BookRecommend(String bid) {
-    return '$serviceUrl/book-list/$bid/recommend';
+  static String BookRecommend(String novelId) {
+    return '$serviceUrl/book-list/$novelId/recommend';
   }
-  static String BookDetail(String bid) {
-    return '$serviceUrl/book/$bid';
+  static String BookDetail(String novelId) {
+    return '$serviceUrl/book/$novelId';
   }
-  static String Chapter(int bid,int chapter) {
-    return '$serviceUrl/chapter/$bid/$chapter';
+  static String Chapter(int novelId,int chapter) {
+    return '$serviceUrl/chapter/$novelId/$chapter';
+  }
+  static String ChapterList(int novelId) {
+    if (Platform.isIOS) {
+      return '$serviceUrl/content-ios/$novelId';
+    } else {
+      return '$serviceUrl/content-android/$novelId';
+    }
   }
   
 }
