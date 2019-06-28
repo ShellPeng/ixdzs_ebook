@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provide/provide.dart';
 import 'package:ixdzs_ebook/app/application.dart';
 import 'ebook_sarchbar.dart';
 import 'search_header.dart';
@@ -9,24 +8,29 @@ import '../provide/booksearch_provide.dart';
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provide.value<BookSearchProvide>(context).reloadData();
-    Provide.value<BookSearchProvide>(context).getSearchRecord();
+    // Provide.value<BookSearchProvide>(context).reloadData();
+    // Provide.value<BookSearchProvide>(context).getSearchRecord();
 
-    return Scaffold(
-        appBar:
-            AppBar(title: Text('搜索', style: TextStyle(color: Colors.white))),
-        body: Provide<BookSearchProvide>(
-          builder: (context, widget, provide) => EbookSearchBar(
-                leading: Icon(Icons.search),
-                decoration: InputDecoration.collapsed(hintText: "搜索"),
-                onChanged: (keyWord) {
-                  // print('搜索关键词：' + keyWord);
-                  // provide.keyWords = keyWord;
-                  provide.searchBooks(keyWord);
-                },
-                children: searchView(provide),
-              ),
-        ));
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              builder: (_) => BookSearchProvide()
+                                ..reloadData()
+                                ..getSearchRecord())
+        ],
+        child: Scaffold(
+            appBar: AppBar(
+                title: Text('搜索', style: TextStyle(color: Colors.white))),
+            body: Consumer<BookSearchProvide>(
+              builder: (context, searchProvide, widget) => EbookSearchBar(
+                    leading: Icon(Icons.search),
+                    decoration: InputDecoration.collapsed(hintText: "搜索"),
+                    onChanged: (keyWord) {
+                      searchProvide.searchBooks(keyWord);
+                    },
+                    children: searchView(searchProvide),
+                  ),
+            )));
   }
 
   List<Widget> searchView(BookSearchProvide provide) {
@@ -35,7 +39,7 @@ class SearchPage extends StatelessWidget {
     if (provide.keyWords == '') {
       children.add(SearchHeader(provide.hotWords, onTap: () {
         provide.reloadData();
-      },selectBlock: (dynamic book){
+      }, selectBlock: (dynamic book) {
         provide.saveSearchRecord(book as String);
       }));
       children.add(SectionTitle('搜索历史', '清空', onTap: () {
@@ -43,12 +47,7 @@ class SearchPage extends StatelessWidget {
       }));
       for (var bookName in provide.searchList) {
         children.add(ListTile(
-              leading: Icon(Icons.timer),
-              title: Text(bookName),
-              onTap: (){
-                
-              }
-              ));
+            leading: Icon(Icons.timer), title: Text(bookName), onTap: () {}));
       }
     } else {
       if (provide.resultsModel.books == null ||
@@ -62,10 +61,9 @@ class SearchPage extends StatelessWidget {
           children.add(ListTile(
               leading: Icon(Icons.timer),
               title: Text(book.title == null ? '' : book.title),
-              onTap: (){
+              onTap: () {
                 provide.saveSearchRecord(book.title);
-              }
-              ));
+              }));
         }
       }
     }

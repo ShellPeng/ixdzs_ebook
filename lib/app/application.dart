@@ -9,6 +9,7 @@ export '../common/utility.dart';
 export 'app_color.dart';
 export 'api_service.dart';
 export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
 
 
 import 'package:fluro/fluro.dart';

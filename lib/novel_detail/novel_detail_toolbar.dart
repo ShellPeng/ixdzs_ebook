@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ixdzs_ebook/app/app_color.dart';
 import 'package:ixdzs_ebook/app/app_navigator.dart';
 import '../app/application.dart';
 import '../models/book_detail_model.dart';
-import 'package:provide/provide.dart';
 import '../provide/bookshelf_provide.dart';
 
 import '../reader/reader_scene.dart';
@@ -27,7 +25,7 @@ class NovelDetailToolbar extends StatelessWidget {
         Expanded(
             child: GestureDetector(
           onTap: () {
-            Provide.value<BookshelfProvide>(context).addNovelToShelf(json.encode(novel));
+            Provider.of<BookshelfProvide>(context).addNovelToShelf(json.encode(novel));
             print('加入书架');
           },
           child: Center(
