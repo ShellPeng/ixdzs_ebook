@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../app/application.dart';
 import 'shelf_header.dart';
 import 'book_item_cell.dart';
-import '../provide/bookshelf_provide.dart';
+import '../provide/bookshelf_provider.dart';
 
 // import 'package:flutter_easyrefresh/easy_refresh.dart';
 
@@ -13,10 +13,9 @@ class BookShelfPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookshelfProvide>(context).reloadData();
+    print('界面刷新1');
 
     return Scaffold(
-      // appBar: AppBar(title: Text('书架',style: TextStyle(color: Colors.white))),
 
       body: NestedScrollView(
         headerSliverBuilder: (context, innerScrolled) => <Widget>[
@@ -40,15 +39,9 @@ class BookShelfPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        Provider.of<BookshelfProvide>(context).reloadData();
+                        Provider.of<BookshelfProvider>(context).reloadData();
                       },
                     ),
-                    // IconButton(
-                    //   icon: Image.asset('img/actionbar_checkin.png'),
-                    //   onPressed: (){
-                    //     print('签到');
-                    //   },
-                    // ),
                     IconButton(
                       icon: Image.asset('img/actionbar_search.png'),
                       onPressed: () {},
@@ -57,7 +50,7 @@ class BookShelfPage extends StatelessWidget {
                 ),
               )
             ],
-        body: Consumer<BookshelfProvide>(
+        body: Consumer<BookshelfProvider>(
           builder: (context,provider,_) =>
               // EasyRefresh(
               //       key: _refreshKey,
@@ -93,7 +86,7 @@ class BookShelfPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Provider.of<BookshelfProvide>(context).reloadData();
+            Provider.of<BookshelfProvider>(context).reloadData();
           },
           mini: true,
           child: Icon(Icons.refresh, color: Colors.white)),

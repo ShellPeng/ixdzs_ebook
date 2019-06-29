@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:ixdzs_ebook/app/application.dart';
-import '../provide/recommend_provide.dart';
+import '../provide/recommend_provider.dart';
 import 'recommend_header.dart';
 import 'recommend_section.dart';
 import 'recommend_authors.dart';
@@ -17,12 +17,12 @@ class RecommendPage extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_)=>RecommendProvide()..reloadData())
+        ChangeNotifierProvider(builder: (_)=>RecommendProvider()..reloadData())
       ],
       child: Scaffold(
       appBar: AppBar(title: Text('推荐',style: TextStyle(color: Colors.white))),
       body: Container(
-        child:Consumer<RecommendProvide>(
+        child:Consumer<RecommendProvider>(
           builder: (context,recProvide,widget) => EasyRefresh(
           key: _refreshKey,
           refreshHeader:PhoenixHeader(key: _headerKey),

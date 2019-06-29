@@ -3,7 +3,7 @@ import 'package:ixdzs_ebook/app/application.dart';
 import 'ebook_sarchbar.dart';
 import 'search_header.dart';
 import '../common/section_title.dart';
-import '../provide/booksearch_provide.dart';
+import '../provide/booksearch_provider.dart';
 
 class SearchPage extends StatelessWidget {
   @override
@@ -14,14 +14,14 @@ class SearchPage extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              builder: (_) => BookSearchProvide()
+              builder: (_) => BookSearchProvider()
                                 ..reloadData()
                                 ..getSearchRecord())
         ],
         child: Scaffold(
             appBar: AppBar(
                 title: Text('搜索', style: TextStyle(color: Colors.white))),
-            body: Consumer<BookSearchProvide>(
+            body: Consumer<BookSearchProvider>(
               builder: (context, searchProvide, widget) => EbookSearchBar(
                     leading: Icon(Icons.search),
                     decoration: InputDecoration.collapsed(hintText: "搜索"),
@@ -33,7 +33,7 @@ class SearchPage extends StatelessWidget {
             )));
   }
 
-  List<Widget> searchView(BookSearchProvide provide) {
+  List<Widget> searchView(BookSearchProvider provide) {
     List<Widget> children = [];
 
     if (provide.keyWords == '') {

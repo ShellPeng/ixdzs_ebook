@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'provide/root_pages_provide.dart';
+import 'provide/root_pages_provider.dart';
 import 'app/application.dart';
 import 'bookshelf/shelf_page.dart';
 import 'recommend/recommend_page.dart';
@@ -28,8 +28,8 @@ class RootPages extends StatelessWidget {
     ];
 
     return MultiProvider(
-      providers: [ChangeNotifierProvider(builder: (_) => RootPagesProvide())],
-      child: Consumer<RootPagesProvide>(builder: (_, pageProvider, widget) {
+      providers: [ChangeNotifierProvider(builder: (_) => RootPagesProvider())],
+      child: Consumer<RootPagesProvider>(builder: (_, pageProvider, widget) {
         return Scaffold(
           backgroundColor: Color.fromRGBO(244, 245, 245, 1),
           body: IndexedStack(index: pageProvider.page, children: _tabPages),
